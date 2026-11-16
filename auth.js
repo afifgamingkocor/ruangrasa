@@ -23,7 +23,7 @@ if (authNavLinks.length) {
 const demoCredentials = document.querySelector("[data-demo-credentials]");
 if (demoCredentials) {
     requestJson("/api/demo-credentials").then(data => {
-        demoCredentials.textContent = `Admin — Username: ${data.admin.username} · Password: ${data.admin.password}\nPenjual — Username: ${data.seller.username} · Password: ${data.seller.password}`;
+        demoCredentials.textContent = `Admin — Email: ${data.admin.username} · Password: ${data.admin.password}\nPenjual — Email: ${data.seller.username} · Password: ${data.seller.password}`;
     }).catch(() => {
         demoCredentials.textContent = "Kredensial demo hanya ditampilkan pada server pengembangan.";
     });

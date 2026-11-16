@@ -228,8 +228,8 @@ function serveStatic(req, res, url) {
 
 async function main() {
     for (const user of users) {
-        if (!user.password || user.password.length < 12) {
-            console.error(`Konfigurasi ${user.role} tidak aman. Set ${user.role === "admin" ? "ADMIN" : "SELLER"}_PASSWORD (minimal 12 karakter) di .env.`);
+        if (!user.password || user.password.length < 8) {
+            console.error(`Konfigurasi ${user.role} tidak valid. Set ${user.role === "admin" ? "ADMIN" : "SELLER"}_PASSWORD (minimal 8 karakter) di .env.`);
             process.exitCode = 1;
             return;
         }
