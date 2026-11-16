@@ -38,6 +38,23 @@ function saveCart() {
     }
 }
 
+function initCartSync() {
+    window.addEventListener("pageshow", () => {
+        cartItems = loadCart();
+        updateCart();
+        const panel = document.querySelector(".cart-panel:not([hidden])");
+        if (panel) renderCart(panel);
+    });
+
+    window.addEventListener("storage", event => {
+        if (event.key !== CART_STORAGE_KEY && event.key !== null) return;
+        cartItems = loadCart();
+        updateCart();
+        const panel = document.querySelector(".cart-panel:not([hidden])");
+        if (panel) renderCart(panel);
+    });
+}
+
 /* ===========================
    MOBILE MENU
 =========================== */
@@ -697,6 +714,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initMobileMenu();
 
     initAddCartButtons();
+
+    initCartSync();
 
     initQuantitySelector();
 
