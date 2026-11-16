@@ -120,6 +120,16 @@ function hashPassword(password) {
 }
 
 async function api(req, res, url) {
+    if (req.method === "GET" && url.pathname === "/api/demo-credentials") {
+        if (process.env.NODE_ENV === "production") {
+            return sendJson(res, 404, { error: "Not found." });
+        }
+        return sendJson(res, 200, {
+            admin: { username: users[0].username, password: process.env.ADMIN_PASSWORD },
+            seller: { username: users[1].username, password: process.env.SELLER_PASSWORD }
+        });
+    }
+
     if (req.method === "POST" && req.headers.origin) {
         try {
             if (new URL(req.headers.origin).host !== req.headers.host) {

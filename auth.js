@@ -8,6 +8,27 @@ async function requestJson(url, options = {}) {
     return data;
 }
 
+const authNavLinks = document.querySelectorAll("[data-auth-nav]");
+if (authNavLinks.length) {
+    requestJson("/api/session").then(({ user }) => {
+        authNavLinks.forEach(link => {
+            link.textContent = user ? "Dashboard" : "Login";
+            link.href = user ? "dashboard.html" : "login.html";
+            link.title = user ? "Buka dashboard" : "Khusus admin dan penjual";
+            link.setAttribute("aria-label", link.title);
+        });
+    }).catch(() => {});
+}
+
+const demoCredentials = document.querySelector("[data-demo-credentials]");
+if (demoCredentials) {
+    requestJson("/api/demo-credentials").then(data => {
+        demoCredentials.textContent = `Admin — Username: ${data.admin.username} · Password: ${data.admin.password}\nPenjual — Username: ${data.seller.username} · Password: ${data.seller.password}`;
+    }).catch(() => {
+        demoCredentials.textContent = "Kredensial demo hanya ditampilkan pada server pengembangan.";
+    });
+}
+
 const loginForm = document.querySelector("#login-form");
 if (loginForm) {
     requestJson("/api/session").then(({ user }) => {

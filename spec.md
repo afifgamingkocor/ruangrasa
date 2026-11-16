@@ -307,6 +307,8 @@ jawaban), dicocokkan dengan `includes()`, lalu `<details>` yang tidak cocok dibe
   dengan cookie `HttpOnly`, `SameSite=Lax`, dan masa berlaku 8 jam.
 - Username/password admin dan penjual dikonfigurasi melalui `.env`; password di-hash
   memakai `scrypt` saat server berjalan, tidak dimasukkan ke file frontend/repository.
+- Navbar menampilkan Login untuk pengunjung dan Dashboard saat sesi aktif. Halaman login
+  menyebut akses khusus admin/penjual; endpoint kredensial demo hanya aktif di development.
 - `GET /api/dashboard` memeriksa peran sesi sebelum mengirim ringkasan masing-masing.
 - Salah 5 kali berturut-turut mengunci percobaan login dari IP tersebut selama 10 menit.
 - `dashboard.html` menampilkan ringkasan peran dan menyediakan logout.
