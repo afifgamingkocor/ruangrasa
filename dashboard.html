@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard internal RuangRasa.">
+    <title>Dashboard | RuangRasa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="auth.js" defer></script>
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-header">
+        <a class="logo" href="index.html">Ruang<span>Rasa</span></a>
+        <div class="dashboard-account">
+            <span id="account-name">Memuat akun…</span>
+            <button class="btn btn-outline" id="logout-button" type="button">Keluar</button>
+        </div>
+    </header>
+    <main class="dashboard-main container">
+        <p class="overline">RUANG KERJA</p>
+        <h1 id="dashboard-title">Memuat dashboard…</h1>
+        <p id="dashboard-description" class="dashboard-description"></p>
+        <section id="dashboard-stats" class="dashboard-stats" aria-live="polite"></section>
+        <p id="dashboard-notice" class="dashboard-notice"></p>
+        <a class="dashboard-return" href="index.html">← Kembali ke etalase</a>
+    </main>
+</body>
+</html>

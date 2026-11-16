@@ -4,9 +4,9 @@ Dokumen ini mendeskripsikan struktur, komponen, dan perilaku website **RuangRasa
 yang benar-benar ada di dalam folder proyek. Fungsinya sebagai acuan kerja: kalau ada
 perubahan, ubah kode dan dokumen ini bersamaan.
 
-- **Jenis proyek:** website statis multi-halaman (Proyek UAS Desain Web)
+- **Jenis proyek:** website katalog dengan server Node.js bawaan (Proyek UAS Desain Web)
 - **Bahasa antarmuka:** Indonesia
-- **Status:** tanpa build step, tanpa backend, tanpa database
+- **Status:** tanpa dependensi eksternal; backend autentikasi menggunakan Node.js bawaan, akun dikonfigurasi lokal di `.env`
 
 ---
 
@@ -23,12 +23,12 @@ hadiah. Website berfungsi sebagai **katalog + etalase**, bukan toko transaksiona
 - Galeri produk dan pemilihan varian di halaman detail
 - Form kontak dan newsletter dengan validasi HTML + umpan balik toast
 - Checkout sisi-klien yang meneruskan ringkasan pesanan ke WhatsApp
+- Login dan dashboard berbasis peran (admin/penjual)
 
 **Di luar lingkup (memang tidak dibuat):**
 
 - Pembayaran online, perhitungan ongkir di bawah ambang gratis, dan riwayat pesanan
-- Login/registrasi dan akun pengguna
-- Panel admin atau CMS
+- Pembayaran online, pengelolaan stok, dan database produk/pesanan
 - Pengiriman form ke server (semua form hanya menampilkan toast)
 
 ---
@@ -45,14 +45,19 @@ hadiah. Website berfungsi sebagai **katalog + etalase**, bukan toko transaksiona
 ├── kontak.html         Kontak, form, peta, FAQ singkat
 ├── faq.html            Pusat bantuan + pencarian FAQ
 ├── checkout.html       Detail pelanggan + kirim pesanan ke WhatsApp
+├── login.html          Login admin/penjual
+├── dashboard.html      Dashboard sesuai peran
+├── auth.js             Interaksi login/dashboard
+├── server.js           Server statis + API autentikasi/sesi
+├── package.json        Perintah npm run dev / npm start
+├── .env                Kredensial lokal (tidak di-commit)
 ├── style.css           Seluruh gaya (1 file, 1.992 baris)
 ├── script.js           Seluruh perilaku (1 file, 12 fungsi)
 └── spec.md             Dokumen ini
 ```
 
 Tidak ada folder aset lokal: semua gambar diambil dari Unsplash lewat URL, dan font dari
-Google Fonts. Tidak ada dependensi, package manager, atau proses kompilasi — cukup buka
-`index.html` di browser.
+Google Fonts. Jalankan `npm run dev` untuk mengaktifkan API login beserta website.
 
 ---
 
@@ -296,6 +301,16 @@ jawaban), dicocokkan dengan `includes()`, lalu `<details>` yang tidak cocok dibe
 - Submit membuka WhatsApp tujuan toko dengan teks pesanan siap kirim. Pesanan baru diterima
   setelah pelanggan mengirim pesan dari aplikasi WhatsApp.
 
+### 5.9 Login & Dashboard Internal
+
+- `login.html` mengirim kredensial ke `POST /api/login`; server membuat sesi acak
+  dengan cookie `HttpOnly`, `SameSite=Lax`, dan masa berlaku 8 jam.
+- Username/password admin dan penjual dikonfigurasi melalui `.env`; password di-hash
+  memakai `scrypt` saat server berjalan, tidak dimasukkan ke file frontend/repository.
+- `GET /api/dashboard` memeriksa peran sesi sebelum mengirim ringkasan masing-masing.
+- Salah 5 kali berturut-turut mengunci percobaan login dari IP tersebut selama 10 menit.
+- `dashboard.html` menampilkan ringkasan peran dan menyediakan logout.
+
 ---
 
 ## 6. Perilaku JavaScript (`script.js`)
@@ -318,6 +333,7 @@ fungsi langsung `return` tanpa error. Karena itu satu file aman dipakai di semua
 | `addToCart` | Menambah item, menyimpan keranjang, tampilkan toast | — |
 | `openCart` / `renderCart` | Panel keranjang, ubah jumlah, subtotal/total, konfirmasi hapus | `.cart-button` |
 | `initCheckout` | Validasi detail pelanggan dan membuka ringkasan pesanan WhatsApp | `[data-checkout-form]` |
+| `auth.js` | Login, memuat dashboard dari API, dan logout | `login.html`, `dashboard.html` |
 | `initAddCartButtons` | Pasang listener pada setiap `.add-cart` | `data-product` |
 | `showToast` | Isi pesan, tambah `.show`, auto-hide 2.500 ms (timeout tunggal, anti-tumpuk) | `.toast` |
 | `initQuantitySelector` | Tambah/kurang kuantitas, minimum 1 | `[data-quantity*]` |
@@ -386,28 +402,28 @@ Satu breakpoint: **≤ 820px**.
 Hal-hal ini disengaja atau belum dikerjakan — bukan bug tak terduga:
 
 1. **Pembayaran online belum tersedia.** Pemesanan diteruskan ke WhatsApp dan ongkir non-gratis dikonfirmasi manual.
-2. **Halaman detail memakai satu template** dan memilih produk melalui parameter URL.
-3. **Instagram/Pinterest** memakai `href="#"` sampai URL akun tersedia.
-4. **Peta** menunjuk Jakarta, sedangkan alamat di halaman kontak Banyuwangi.
-5. **Form kontak dan newsletter hanya simulasi.** Data tidak dikirim atau disimpan.
-6. **Filter kategori** di `produk.html` hanya mencakup 3 nilai; produk `hadiah` tidak punya
+2. **Dashboard masih berupa ringkasan.** Produk dan pesanan belum dikelola lewat database; metrik dashboard bersifat placeholder.
+3. **Halaman detail memakai satu template** dan memilih produk melalui parameter URL.
+4. **Instagram/Pinterest** memakai `href="#"` sampai URL akun tersedia.
+5. **Peta** menunjuk Jakarta, sedangkan alamat di halaman kontak Banyuwangi.
+6. **Form kontak dan newsletter hanya simulasi.** Data tidak dikirim atau disimpan.
+7. **Filter kategori** di `produk.html` hanya mencakup 3 nilai; produk `hadiah` tidak punya
    halaman atau seksi khusus selain filter.
-7. **CSS cukup panjang** (≈2.000 baris) dan memuat beberapa deklarasi `.catalog-grid`
+8. **CSS cukup panjang** (≈2.000 baris) dan memuat beberapa deklarasi `.catalog-grid`
    bertingkat (aturan dasar lalu override khusus katalog). Ini disengaja, bukan duplikasi
    yang saling menimpa nilai penting.
-8. **Tidak ada validasi JS** di form; mengandalkan atribut `required` dan `type="email"`.
+9. **Tidak ada validasi JS** di form; mengandalkan atribut `required` dan `type="email"`.
 
 ---
 
 ## 10. Cara Menjalankan
 
-Tidak perlu instalasi apa pun:
+Tidak perlu paket tambahan; Node.js diperlukan untuk backend login:
 
-1. Buka `index.html` langsung di browser (double-click), atau
-2. Jalankan server statis lokal dari folder ini, misalnya `python -m http.server 8000`,
-   lalu buka `http://localhost:8000`.
+1. Siapkan `.env` lokal berdasarkan `.env.example`.
+2. Jalankan `npm run dev`, lalu buka `http://localhost:8000`.
 
-Pemeriksaan sintaks JS tanpa browser: `node --check script.js`.
+Pemeriksaan sintaks: `node --check script.js` dan `node --check server.js`.
 
 ---
 
