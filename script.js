@@ -7,6 +7,7 @@ const cartCounter = document.querySelector("[data-cart-count]");
 const toast = document.querySelector(".toast");
 
 const CART_STORAGE_KEY = "ruangrasa-cart";
+const ORDER_WHATSAPP_NUMBER = "6281234567890";
 const productCatalog = {
     "Lilin Aromaterapi Senja": { price: 89000, category: "RITUAL RUMAH", image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=90", description: "Aroma lembut yang mengingatkan pada sore yang tenang. Perpaduan bergamot, kayu cedar, dan sedikit vanilla untuk menghangatkan ruangmu." },
     "Mug Keramik Pagi": { price: 75000, category: "PERLENGKAPAN RUMAH", image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=1000&q=90", description: "Mug keramik untuk menemani ritual minum kopi atau teh setiap pagi." },
@@ -135,7 +136,7 @@ function renderCart(panel) {
                 <button type="button" data-cart-remove="${name}" aria-label="Hapus ${name}">Hapus</button>
             </div>
         </li>`).join("")}</ul>
-        <p class="cart-total">Total <strong>${formatPrice(total)}</strong></p><p class="cart-note">Keranjang ini hanya untuk pratinjau. Checkout belum tersedia.</p>` : `<p class="cart-empty">Tasmu masih kosong.</p>`}`;
+        <p class="cart-total">Subtotal <strong>${formatPrice(total)}</strong></p><p class="cart-note">Ongkir dikonfirmasi admin melalui WhatsApp.</p><a class="btn btn-dark cart-checkout-link" href="checkout.html">Lanjutkan ke Checkout →</a>` : `<p class="cart-empty">Tasmu masih kosong.</p>`}`;
     panel.querySelector("[data-cart-close]").addEventListener("click", () => { panel.hidden = true; });
     panel.querySelectorAll("[data-cart-increase], [data-cart-decrease]").forEach(button => {
         button.addEventListener("click", () => {
@@ -166,6 +167,48 @@ function renderCart(panel) {
 
 function formatPrice(value) {
     return `Rp${Number(value).toLocaleString("id-ID")}`;
+}
+
+function initCheckout() {
+    const form = document.querySelector("[data-checkout-form]");
+    const summary = document.querySelector("[data-checkout-summary]");
+    const submit = document.querySelector("[data-checkout-submit]");
+    if (!form || !summary || !submit) return;
+
+    function renderSummary() {
+        const entries = Object.entries(cartItems);
+        const subtotal = entries.reduce((sum, [, item]) => sum + item.price * item.quantity, 0);
+        summary.innerHTML = entries.length
+            ? `${entries.map(([name, item]) => `<li><span>${name} <small>× ${item.quantity}</small></span><strong>${formatPrice(item.price * item.quantity)}</strong></li>`).join("")}
+                <li class="checkout-subtotal"><span>Subtotal</span><strong>${formatPrice(subtotal)}</strong></li>
+                <li><span>Ongkir</span><strong>${subtotal > 300000 ? "Gratis" : "Dikonfirmasi admin"}</strong></li>`
+            : `<li class="checkout-empty">Keranjang masih kosong. <a href="produk.html">Pilih produk</a></li>`;
+        submit.disabled = entries.length === 0;
+        return { entries, subtotal };
+    }
+
+    renderSummary();
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const { entries, subtotal } = renderSummary();
+        if (!entries.length) return;
+        const data = new FormData(form);
+        const lines = [
+            "Halo RuangRasa, saya ingin membuat pesanan:",
+            "",
+            ...entries.map(([name, item]) => `• ${name} — ${item.quantity} × ${formatPrice(item.price)} = ${formatPrice(item.price * item.quantity)}`),
+            "",
+            `Subtotal: ${formatPrice(subtotal)}`,
+            `Ongkir: ${subtotal > 300000 ? "Gratis" : "Mohon konfirmasi ongkir"}`,
+            "",
+            `Nama: ${data.get("customer-name")}`,
+            `WhatsApp pelanggan: ${data.get("customer-phone")}`,
+            `Alamat: ${data.get("customer-address")}`,
+            `Catatan: ${data.get("customer-note") || "-"}`
+        ];
+        window.open(`https://wa.me/${ORDER_WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    });
 }
 
 function initProductDetail() {
@@ -664,6 +707,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initProductDetail();
 
     initProductLinks();
+
+    initCheckout();
 
     initProductSearch();
 

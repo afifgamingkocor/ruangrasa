@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Selesaikan pesanan RuangRasa melalui WhatsApp.">
+    <title>Checkout | RuangRasa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="announcement">Gratis ongkir untuk pembelian di atas Rp300.000 <a href="produk.html">Belanja sekarang →</a></div>
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a href="index.html" class="logo" aria-label="RuangRasa Beranda">Ruang<span>Rasa</span></a>
+            <button class="menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
+            <nav class="main-nav" aria-label="Navigasi utama">
+                <a href="index.html">Beranda</a><a href="produk.html">Belanja</a><a href="kategori.html">Kategori</a><a href="tentang.html">Tentang</a><a href="kontak.html">Kontak</a>
+            </nav>
+            <div class="nav-tools">
+                <a href="produk.html" class="tool-link" aria-label="Cari Produk">⌕</a>
+                <button class="cart-button" type="button" aria-label="Buka tas belanja">Tas <b data-cart-count>0</b></button>
+            </div>
+        </div>
+    </header>
+    <main class="checkout-page container">
+        <div class="page-heading checkout-heading">
+            <p class="overline">LANGKAH TERAKHIR</p>
+            <h1>Pesanan yang terasa personal.</h1>
+            <p>Lengkapi detail di bawah. Pesanan akan diteruskan ke RuangRasa melalui WhatsApp.</p>
+        </div>
+        <div class="checkout-layout">
+            <section class="checkout-card">
+                <h2>Detail pengiriman</h2>
+                <form data-checkout-form>
+                    <label for="customer-name">Nama lengkap</label>
+                    <input id="customer-name" name="customer-name" autocomplete="name" required>
+                    <label for="customer-phone">Nomor WhatsApp</label>
+                    <input id="customer-phone" name="customer-phone" type="tel" autocomplete="tel" placeholder="Contoh: 0812..." required>
+                    <label for="customer-address">Alamat lengkap</label>
+                    <textarea id="customer-address" name="customer-address" autocomplete="street-address" rows="4" required></textarea>
+                    <label for="customer-note">Catatan (opsional)</label>
+                    <textarea id="customer-note" name="customer-note" rows="3"></textarea>
+                    <button class="btn btn-dark checkout-submit" type="submit" data-checkout-submit>Kirim pesanan ke WhatsApp →</button>
+                </form>
+                <p class="checkout-disclaimer">WhatsApp akan terbuka dengan pesan pesanan yang sudah disiapkan. Pesanan baru tercatat setelah Anda menekan tombol kirim di WhatsApp.</p>
+            </section>
+            <aside class="checkout-card checkout-summary">
+                <h2>Ringkasan tas</h2>
+                <ul data-checkout-summary></ul>
+                <p class="checkout-shipping-note">Ongkir di bawah Rp300.000 akan dikonfirmasi admin melalui WhatsApp.</p>
+                <a href="produk.html" class="checkout-back-link">← Kembali belanja</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="container footer-bottom">
+            <span>© <span data-year></span> RuangRasa. Proyek UAS Desain Web.</span>
+            <span>Dibuat dengan penuh rasa.</span>
+        </div>
+    </footer>
+    <div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

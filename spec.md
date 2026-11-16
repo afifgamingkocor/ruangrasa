@@ -17,15 +17,16 @@ hadiah. Website berfungsi sebagai **katalog + etalase**, bukan toko transaksiona
 
 **Termasuk dalam lingkup:**
 
-- 7 halaman statis yang saling terhubung
+- 8 halaman statis yang saling terhubung
 - Filter, pencarian, dan pengurutan katalog di sisi klien
 - Keranjang sisi-klien dengan penghitung, panel isi tas, dan penyimpanan `localStorage`
 - Galeri produk dan pemilihan varian di halaman detail
 - Form kontak dan newsletter dengan validasi HTML + umpan balik toast
+- Checkout sisi-klien yang meneruskan ringkasan pesanan ke WhatsApp
 
 **Di luar lingkup (memang tidak dibuat):**
 
-- Checkout, pembayaran, ongkir, dan riwayat pesanan
+- Pembayaran online, perhitungan ongkir di bawah ambang gratis, dan riwayat pesanan
 - Login/registrasi dan akun pengguna
 - Panel admin atau CMS
 - Pengiriman form ke server (semua form hanya menampilkan toast)
@@ -43,6 +44,7 @@ hadiah. Website berfungsi sebagai **katalog + etalase**, bukan toko transaksiona
 ├── tentang.html        Profil & nilai brand
 ├── kontak.html         Kontak, form, peta, FAQ singkat
 ├── faq.html            Pusat bantuan + pencarian FAQ
+├── checkout.html       Detail pelanggan + kirim pesanan ke WhatsApp
 ├── style.css           Seluruh gaya (1 file, 1.992 baris)
 ├── script.js           Seluruh perilaku (1 file, 12 fungsi)
 └── spec.md             Dokumen ini
@@ -286,6 +288,14 @@ Perilaku pencarian: konci diambil dari `textContent` setiap `<details>` (pertany
 jawaban), dicocokkan dengan `includes()`, lalu `<details>` yang tidak cocok diberi atribut
 `hidden`. Bila hasil nol, pesan kosong ditampilkan.
 
+### 5.8 `checkout.html` — Checkout WhatsApp
+
+- Ringkasan item, subtotal, ongkir gratis jika subtotal > Rp300.000.
+- Jika belum memenuhi ambang, ongkir dikonfirmasi admin melalui WhatsApp.
+- Nama, nomor WhatsApp pelanggan, dan alamat wajib; catatan bersifat opsional.
+- Submit membuka WhatsApp tujuan toko dengan teks pesanan siap kirim. Pesanan baru diterima
+  setelah pelanggan mengirim pesan dari aplikasi WhatsApp.
+
 ---
 
 ## 6. Perilaku JavaScript (`script.js`)
@@ -307,6 +317,7 @@ fungsi langsung `return` tanpa error. Karena itu satu file aman dipakai di semua
 | `updateCart` | Menulis jumlah item ke semua `[data-cart-count]` | — |
 | `addToCart` | Menambah item, menyimpan keranjang, tampilkan toast | — |
 | `openCart` / `renderCart` | Panel keranjang, ubah jumlah, subtotal/total, konfirmasi hapus | `.cart-button` |
+| `initCheckout` | Validasi detail pelanggan dan membuka ringkasan pesanan WhatsApp | `[data-checkout-form]` |
 | `initAddCartButtons` | Pasang listener pada setiap `.add-cart` | `data-product` |
 | `showToast` | Isi pesan, tambah `.show`, auto-hide 2.500 ms (timeout tunggal, anti-tumpuk) | `.toast` |
 | `initQuantitySelector` | Tambah/kurang kuantitas, minimum 1 | `[data-quantity*]` |
@@ -374,7 +385,7 @@ Satu breakpoint: **≤ 820px**.
 
 Hal-hal ini disengaja atau belum dikerjakan — bukan bug tak terduga:
 
-1. **Checkout belum tersedia.** Keranjang disimpan lokal, tetapi tidak ada pemesanan/pembayaran.
+1. **Pembayaran online belum tersedia.** Pemesanan diteruskan ke WhatsApp dan ongkir non-gratis dikonfirmasi manual.
 2. **Halaman detail memakai satu template** dan memilih produk melalui parameter URL.
 3. **Instagram/Pinterest** memakai `href="#"` sampai URL akun tersedia.
 4. **Peta** menunjuk Jakarta, sedangkan alamat di halaman kontak Banyuwangi.
