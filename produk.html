@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Katalog produk RuangRasa." name="description"/>
+  <title>
+   Belanja | RuangRasa
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer="" src="script.js">
+  </script>
+ </head>
+ <body>
+  <div class="announcement">
+   Gratis ongkir untuk pembelian di atas Rp300.000
+   <a href="produk.html">
+    Belanja sekarang →
+   </a>
+  </div>
+  <header class="site-header">
+   <div class="nav-wrap">
+    <a class="logo" href="index.html">
+     Ruang
+     <span>
+      Rasa
+     </span>
+    </a>
+    <button aria-expanded="false" aria-label="Buka menu" class="menu-toggle" type="button">
+     ☰
+    </button>
+    <nav aria-label="Navigasi utama" class="main-nav">
+     <a href="index.html">
+      Beranda
+     </a>
+     <a class="active" href="produk.html">
+      Belanja
+     </a>
+     <a href="kategori.html">
+      Kategori
+     </a>
+     <a href="tentang.html">
+      Tentang
+     </a>
+     <a href="kontak.html">
+      Kontak
+     </a>
+    </nav>
+    <div class="nav-tools">
+     <a class="tool-link" href="#catalog-search">
+      ⌕
+     </a>
+     <button class="cart-button" type="button">
+      Tas
+      <b data-cart-count="">
+       0
+      </b>
+     </button>
+    </div>
+   </div>
+  </header>
+  <main>
+   <section class="page-heading">
+    <div class="container">
+     <p class="overline">
+      KOLEKSI RUANGRASA
+     </p>
+     <h1>
+      Pilihan untuk dinikmati setiap hari.
+     </h1>
+     <p>
+      Dari rumah hingga perjalanan, temukan barang kecil yang membawa rasa besar.
+     </p>
+    </div>
+   </section>
+   <section class="container shop-layout">
+    <aside class="filter-panel">
+     <div class="filter-heading">
+      <h2>
+       Filter
+      </h2>
+      <button data-clear-filter="" type="button">
+       Hapus
+      </button>
+     </div>
+     <fieldset>
+      <legend>
+       Kategori
+      </legend>
+      <label>
+       <input checked="" name="category" type="radio" value="all"/>
+       Semua koleksi
+      </label>
+      <label>
+       <input name="category" type="radio" value="rumah"/>
+       Rumah
+      </label>
+      <label>
+       <input name="category" type="radio" value="gaya-hidup"/>
+       Gaya Hidup
+      </label>
+      <label>
+       <input name="category" type="radio" value="hadiah"/>
+       Hadiah
+      </label>
+     </fieldset>
+     <fieldset>
+      <legend>
+       Rentang Harga
+      </legend>
+      <label>
+       <input checked="" name="price" type="radio" value="all"/>
+       Semua harga
+      </label>
+      <label>
+       <input name="price" type="radio" value="100000"/>
+       Di bawah Rp100.000
+      </label>
+      <label>
+       <input name="price" type="radio" value="200000"/>
+       Rp100.000–Rp200.000
+      </label>
+     </fieldset>
+    </aside>
+    <section aria-label="Daftar produk" class="catalog-area">
+     <div class="catalog-top">
+      <strong>
+       <span data-product-total="">
+        6
+       </span>
+       Produk
+      </strong>
+      <label class="search-box">
+       <span>
+        ⌕
+       </span>
+       <input data-product-search="" id="catalog-search" placeholder="Cari produk" type="search"/>
+      </label>
+      <select aria-label="Urutkan produk" data-sort>
+       <option value="latest">
+        Urutkan: Terbaru
+        </option>
+
+        <option value="low">
+            Harga Terendah
+        </option>
+
+        <option value="high">
+            Harga Tertinggi
+        </option>
+      </select>
+
+     </div>
+     <div class="catalog-grid">
+      <article class="product-card" data-category="rumah" data-price="89000" data-product="Lilin Aromaterapi Senja">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Lilin aromaterapi" src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Baru
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         RITUAL RUMAH
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Lilin Aromaterapi Senja
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp89.000
+         </strong>
+         <button class="add-cart" data-category="rumah" data-price="89000" data-product="Lilin Aromaterapi Senja" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+      <article class="product-card" data-category="rumah" data-price="75000" data-product="Mug Keramik Pagi">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Mug keramik" src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Favorit
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         PERLENGKAPAN RUMAH
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Mug Keramik Pagi
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp75.000
+         </strong>
+         <button class="add-cart" data-category="rumah" data-price="75000" data-product="Mug Keramik Pagi" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+      <article class="product-card" data-category="gaya-hidup" data-price="119000" data-product="Tas Kanvas Sederhana">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Tas kanvas" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Terlaris
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         GAYA HIDUP
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Tas Kanvas Sederhana
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp119.000
+         </strong>
+         <button class="add-cart" data-category="gaya-hidup" data-price="119000" data-product="Tas Kanvas Sederhana" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+      <article class="product-card" data-category="rumah" data-price="145000" data-product="Vas Kaca Embun">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Vas kaca" src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Baru
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         DEKORASI RUMAH
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Vas Kaca Embun
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp145.000
+         </strong>
+         <button class="add-cart" data-category="rumah" data-price="145000" data-product="Vas Kaca Embun" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+      <article class="product-card" data-category="gaya-hidup" data-price="68000" data-product="Notebook Linen">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Buku catatan" src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Terpilih
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         GAYA HIDUP
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Notebook Linen
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp68.000
+         </strong>
+         <button class="add-cart" data-category="gaya-hidup" data-price="68000" data-product="Notebook Linen" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+      <article class="product-card" data-category="hadiah" data-price="45000" data-product="Set Kartu Pesan">
+       <a class="product-image" href="detail-produk.html">
+        <img alt="Kado dibungkus kertas" src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&amp;fit=crop&amp;w=700&amp;q=85"/>
+        <span>
+         Hadiah
+        </span>
+       </a>
+       <div class="product-body">
+        <p>
+         UNTUK DIHADIAHI
+        </p>
+        <h3>
+         <a href="detail-produk.html">
+          Set Kartu Pesan
+         </a>
+        </h3>
+        <div>
+         <strong>
+          Rp45.000
+         </strong>
+         <button class="add-cart" data-category="hadiah" data-price="45000" data-product="Set Kartu Pesan" type="button">
+          +
+         </button>
+        </div>
+       </div>
+      </article>
+     </div>
+     <p class="empty-products" hidden="">
+      Produk yang kamu cari belum tersedia.
+     </p>
+    </section>
+   </section>
+  </main>
+  <footer class="site-footer">
+   <div class="container footer-grid">
+    <div>
+     <a class="logo" href="index.html">
+      Ruang
+      <span>
+       Rasa
+      </span>
+     </a>
+     <p>
+      Kurasi benda untuk merayakan keseharianmu.
+     </p>
+    </div>
+    <div>
+     <h3>
+      Jelajahi
+     </h3>
+     <a href="produk.html">
+      Belanja
+     </a>
+     <a href="kategori.html">
+      Kategori
+     </a>
+     <a href="tentang.html">
+      Tentang Kami
+     </a>
+    </div>
+    <div>
+     <h3>
+      Bantuan
+     </h3>
+     <a href="kontak.html">
+      Hubungi Kami
+     </a>
+     <a href="faq.html">
+      Pertanyaan Umum
+     </a>
+    </div>
+    <div>
+     <h3>
+      Ikuti kami
+     </h3>
+     <a href="#">
+      Instagram
+     </a>
+     <a href="#">
+      Pinterest
+     </a>
+    </div>
+   </div>
+   <div class="container footer-bottom">
+    <span>
+     ©
+     <span data-year="">
+     </span>
+     RuangRasa. Proyek UAS Desain Web.
+    </span>
+    <span>
+     Dibuat dengan penuh rasa.
+    </span>
+   </div>
+  </footer>
+  <div aria-live="polite" class="toast" role="status">
+  </div>
+ </body>
+</html>
